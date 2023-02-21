@@ -1,13 +1,110 @@
 <p>add-employee works!</p>
+ <mat-tab-group [(selectedIndex)]="selectedTabIndex">
+  <mat-tab label="Basic Information">
+    <!-- <app-basic-information (formSubmitted)="onBasicInformationFormSubmitted($event)"></app-basic-information> -->
+    <form>
+      <div class="form-group">
+        <label for="firstName">First Name:</label>
+        <input type="text" class="form-control" id="firstName" required>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <input type="text" class="form-control" id="lastName">
+      </div>
+      <div class="form-group">
+        <label for="dob">Date of Birth:</label>
+        <input type="date" class="form-control" id="dob" required max="{{ maxDob }}">
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone:</label>
+        <input type="tel" class="form-control" id="phone" required pattern="[0-9]{11}" minlength="11" maxlength="11">
+      </div>
+      <div class="form-group">
+        <label for="gender">Gender:</label>
+        <select class="form-control" id="gender" required>
+          <option value="">--Select--</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+    </form>
+  </mat-tab>
+  <mat-tab label="Skill Information">
+    <!-- <app-skill-information (formSubmitted)="onSkillInformationFormSubmitted($event)"></app-skill-information> -->
+    <form>
+      <div class="form-group">
+        <label for="skillName">Skill Name:</label>
+        <input type="text" class="form-control" id="skillName" required>
+      </div>
+      <div class="form-group">
+        <label for="expYears">Experience in Years</label>
+        <input type="text" class="form-control" id="skillName" required>
+      </div>
+
+      <div>
+        <select formControlName="skillLevel" placeholder="Skill Level" required>
+          <option value="Beginner">Beginner</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="Advanced">Advanced</option>
+        </select>
+      </div>
+
+    </form>
+  </mat-tab>
+  <mat-tab label="Preview">
+    <!-- <app-preview [formData]="formData"></app-preview> -->
+   </mat-tab>
+</mat-tab-group> 
 
 <!-- <mat-tab-group>
-    <mat-tab label="Basic Information"> -->
-      <!-- Form for basic information goes here -->
-    <!-- </mat-tab>
-    <mat-tab label="Skills"> -->
-      <!-- Form for skills information goes here -->
-    <!-- </mat-tab>
-    <mat-tab label="Preview"> -->
-      <!-- Preview of employee information goes here -->
-    <!-- </mat-tab>
-  </mat-tab-group> -->
+  <mat-tab label="Skill Information">
+    <form [formGroup]="employeeForm">
+      <mat-form-field>
+        <input matInput formControlName="skillName" placeholder="Skill Name" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput type="number" formControlName="experience" placeholder="Experience in Years" required>
+      </mat-form-field>
+
+   
+    </form>
+  </mat-tab>
+
+  <mat-tab label="Preview">
+    <mat-card>
+      <mat-card-title>Preview</mat-card-title>
+      <mat-card-content>
+        <p>Skill Name: {{ employeeForm.value.skillName }}</p>
+        <p>Experience in Years: {{ employeeForm.value.experience }}</p>
+        <p>Skill Level: {{ employeeForm.value.skillLevel }}</p>
+      </mat-card-content>
+    </mat-card>
+  </mat-tab>
+</mat-tab-group> -->
+
+
+<!-- import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+@Component({
+  selector: 'app-add-employee',
+  templateUrl: './add-employee.component.html',
+  styleUrls: ['./add-employee.component.css']
+})
+export class AddEmployeeComponent implements OnInit {
+  employeeForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) { }
+
+  ngOnInit(): void {
+    this.employeeForm = this.formBuilder.group({
+      skillName: ['', Validators.required],
+      experience: ['', Validators.required],
+      skillLevel: ['', Validators.required]
+    });
+  }
+} -->
+
+

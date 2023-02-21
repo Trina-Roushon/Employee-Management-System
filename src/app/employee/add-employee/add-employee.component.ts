@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-//import { UpdateFormData } from './add-employee.actions';
+import { Employee, EmployeeState } from 'src/app/models/employee.model';
+import { EmployeeService } from 'src/Services/employee/employee.service';
 
 @Component({
   selector: 'app-add-employee',
@@ -9,10 +10,22 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./add-employee.component.css']
 })
 export class AddEmployeeComponent {
-  basicInfoForm: FormGroup;
-  skillsForm: FormGroup;
+  basicInfoForm: any;
+  skillsForm: any;
+  preview: any;
+  selectedTabIndex: any;
+  maxDob!: Date;
 
-  constructor(private store: Store, private fb: FormBuilder) {
+
+  constructor(private _employeeService: EmployeeService, private fb: FormBuilder) {
+
+    const today = new Date();
+    this.maxDob = new Date(
+      today.getFullYear() - 18,
+      today.getMonth(),
+      today.getDate()
+    );
+
     this.basicInfoForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: [''],
@@ -26,18 +39,30 @@ export class AddEmployeeComponent {
       experience: ['', Validators.required],
       skillLevel: ['', Validators.required]
     });
+
+    this.preview = this.fb.group({
+      firstName: [''],
+      lastName: [''],
+      dateOfBirth: [''],
+      phone: [''],
+      gender: [''],
+      skillName: [''],
+      experience: [''],
+      skillLevel: ['']
+    });
   }
-  onFormValueChange() {
-    // this.store.dispatch(new UpdateFormData({
-    //   basicInfo: this.basicInfoForm.value,
-    //   skills: this.skillsForm.value
-    // }));
+   onFormSubmit(): void {
+    const employee: EmployeeState = {
+      firstName: this.basicInfoForm.get('firstName').value,
+      lastName: this.basicInfoForm.get('lastName').value,
+      dateOfBirth: this.basicInfoForm.get('dateOfBirth').value,
+      phone: this.basicInfoForm.get('phone').value,
+      gender: this.basicInfoForm.get('gender').value,
+      skillName: this.skillsForm.get('skillName').value,
+      experienceInYears: this.skillsForm.get('experienceInYears').value,
+      skillLevel: this.skillsForm.get('skillLevel').value,
+      id: 0
+    };
+ //   this._employeeService.addEmployee({ employee });
   }
 }
-
-
-//In the add-employee.actions.ts file, create the action to update the store with the form data:
-
-// import { createAction, props } from '@ngrx/store';
-
-// export const updateFormData = createAction('[Add Employee] Update Form Data', props<{ basicInfo: any, skills: any }>());
